@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
+using System.Web.Helpers;
 using System.Web.Http;
 using ScholarBarter.Models;
 using ScholarBarter.Models.DataContexts;
@@ -11,7 +12,7 @@ namespace ScholarBarter.Controllers
     public class ActiveUsersController : ApiController
     {
         [HttpPost]
-        public IEnumerable<PublicUser> GetActiveUsers(FormDataCollection formData)
+        public string GetActiveUsers(FormDataCollection formData)
         {
             string key = formData.FirstOrDefault(a => a.Key == "sessionKey").Value;
 
@@ -25,7 +26,7 @@ namespace ScholarBarter.Controllers
                 where a.Enabled
                 select a;
 
-            return result;
+            return Json.Encode(result);
         }
     }
 }

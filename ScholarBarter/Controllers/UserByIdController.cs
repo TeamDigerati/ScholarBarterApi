@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Web.Helpers;
 using System.Web.Http;
@@ -9,21 +12,21 @@ using ScholarBarter.Models.Exceptions;
 
 namespace ScholarBarter.Controllers
 {
-    public class ActiveListingsController : ApiController
+    public class UserByIdController : ApiController
     {
         [HttpPost]
-        public string GetActiveListings(FormDataCollection formData)
+        public string post(FormDataCollection formData)
         {
             string key = formData.FirstOrDefault(a => a.Key == "sessionKey").Value;
-
+            int id = Convert.ToInt32(formData.FirstOrDefault(a => a.Key == "UserId").Value);
             if (!SessionValidator.Validate(key))
                 throw new InvalidSessionException();
-	        
-            ListingsDataContext dc = new ListingsDataContext();
+
+            UsersPublicDataContext dc = new UsersPublicDataContext();
 
             var result =
-                from a in dc.GetTable<Listing>()
-                where a.Active
+                from a in dc.GetTable<PublicUser>()
+                where a.UserId == id
                 select a;
 
             return Json.Encode(result);

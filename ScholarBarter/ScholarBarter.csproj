@@ -211,6 +211,8 @@
     <Compile Include="Controllers\AllListingsController.cs" />
     <Compile Include="Controllers\AllListingTypesController.cs" />
     <Compile Include="Controllers\AllUsersController.cs" />
+    <Compile Include="Controllers\ListingByIdController.cs" />
+    <Compile Include="Controllers\UserByIdController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
