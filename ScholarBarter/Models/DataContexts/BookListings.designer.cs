@@ -23,62 +23,57 @@ namespace ScholarBarter.Models.DataContexts
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Api")]
-	public partial class ListingsDataContext : System.Data.Linq.DataContext
+	public partial class BookListingsDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertListing(Listing instance);
-    partial void UpdateListing(Listing instance);
-    partial void DeleteListing(Listing instance);
     #endregion
 		
-		public ListingsDataContext() : 
+		public BookListingsDataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ApiConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public ListingsDataContext(string connection) : 
+		public BookListingsDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public ListingsDataContext(System.Data.IDbConnection connection) : 
+		public BookListingsDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public ListingsDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public BookListingsDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public ListingsDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public BookListingsDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Listing> Listings
+		public System.Data.Linq.Table<BookListing> BookListings
 		{
 			get
 			{
-				return this.GetTable<Listing>();
+				return this.GetTable<BookListing>();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Listings")]
-	public partial class Listing : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BookListings")]
+	public partial class BookListing
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _ListingId;
 		
@@ -98,36 +93,17 @@ namespace ScholarBarter.Models.DataContexts
 		
 		private System.Nullable<int> _Quantity;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnListingIdChanging(int value);
-    partial void OnListingIdChanged();
-    partial void OnUserIdChanging(int value);
-    partial void OnUserIdChanged();
-    partial void OnActiveChanging(bool value);
-    partial void OnActiveChanged();
-    partial void OnListingTypeChanging(string value);
-    partial void OnListingTypeChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnCreationTimeChanging(System.DateTime value);
-    partial void OnCreationTimeChanged();
-    partial void OnPriceChanging(System.Nullable<decimal> value);
-    partial void OnPriceChanged();
-    partial void OnQuantityChanging(System.Nullable<int> value);
-    partial void OnQuantityChanged();
-    #endregion
+		private int _BookId;
 		
-		public Listing()
+		private string _Isbn10;
+		
+		private string _Condition;
+		
+		public BookListing()
 		{
-			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListingId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListingId", DbType="Int NOT NULL")]
 		public int ListingId
 		{
 			get
@@ -138,11 +114,7 @@ namespace ScholarBarter.Models.DataContexts
 			{
 				if ((this._ListingId != value))
 				{
-					this.OnListingIdChanging(value);
-					this.SendPropertyChanging();
 					this._ListingId = value;
-					this.SendPropertyChanged("ListingId");
-					this.OnListingIdChanged();
 				}
 			}
 		}
@@ -158,11 +130,7 @@ namespace ScholarBarter.Models.DataContexts
 			{
 				if ((this._UserId != value))
 				{
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
 					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
 				}
 			}
 		}
@@ -178,11 +146,7 @@ namespace ScholarBarter.Models.DataContexts
 			{
 				if ((this._Active != value))
 				{
-					this.OnActiveChanging(value);
-					this.SendPropertyChanging();
 					this._Active = value;
-					this.SendPropertyChanged("Active");
-					this.OnActiveChanged();
 				}
 			}
 		}
@@ -198,11 +162,7 @@ namespace ScholarBarter.Models.DataContexts
 			{
 				if ((this._ListingType != value))
 				{
-					this.OnListingTypeChanging(value);
-					this.SendPropertyChanging();
 					this._ListingType = value;
-					this.SendPropertyChanged("ListingType");
-					this.OnListingTypeChanged();
 				}
 			}
 		}
@@ -218,11 +178,7 @@ namespace ScholarBarter.Models.DataContexts
 			{
 				if ((this._Title != value))
 				{
-					this.OnTitleChanging(value);
-					this.SendPropertyChanging();
 					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
 				}
 			}
 		}
@@ -238,11 +194,7 @@ namespace ScholarBarter.Models.DataContexts
 			{
 				if ((this._Description != value))
 				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
 					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
 				}
 			}
 		}
@@ -258,11 +210,7 @@ namespace ScholarBarter.Models.DataContexts
 			{
 				if ((this._CreationTime != value))
 				{
-					this.OnCreationTimeChanging(value);
-					this.SendPropertyChanging();
 					this._CreationTime = value;
-					this.SendPropertyChanged("CreationTime");
-					this.OnCreationTimeChanged();
 				}
 			}
 		}
@@ -278,11 +226,7 @@ namespace ScholarBarter.Models.DataContexts
 			{
 				if ((this._Price != value))
 				{
-					this.OnPriceChanging(value);
-					this.SendPropertyChanging();
 					this._Price = value;
-					this.SendPropertyChanged("Price");
-					this.OnPriceChanged();
 				}
 			}
 		}
@@ -298,32 +242,56 @@ namespace ScholarBarter.Models.DataContexts
 			{
 				if ((this._Quantity != value))
 				{
-					this.OnQuantityChanging(value);
-					this.SendPropertyChanging();
 					this._Quantity = value;
-					this.SendPropertyChanged("Quantity");
-					this.OnQuantityChanged();
 				}
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BookId", DbType="Int NOT NULL")]
+		public int BookId
 		{
-			if ((this.PropertyChanging != null))
+			get
 			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
+				return this._BookId;
+			}
+			set
+			{
+				if ((this._BookId != value))
+				{
+					this._BookId = value;
+				}
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(String propertyName)
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Isbn10", DbType="Char(10) NOT NULL", CanBeNull=false)]
+		public string Isbn10
 		{
-			if ((this.PropertyChanged != null))
+			get
 			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this._Isbn10;
+			}
+			set
+			{
+				if ((this._Isbn10 != value))
+				{
+					this._Isbn10 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Condition", DbType="Char(10) NOT NULL", CanBeNull=false)]
+		public string Condition
+		{
+			get
+			{
+				return this._Condition;
+			}
+			set
+			{
+				if ((this._Condition != value))
+				{
+					this._Condition = value;
+				}
 			}
 		}
 	}

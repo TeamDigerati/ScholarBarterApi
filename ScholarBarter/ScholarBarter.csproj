@@ -208,9 +208,11 @@
     <Compile Include="Controllers\ActiveListingsController.cs" />
     <Compile Include="Controllers\ActiveListingTypesController.cs" />
     <Compile Include="Controllers\ActiveUsersController.cs" />
+    <Compile Include="Controllers\AllBookListingsController.cs" />
     <Compile Include="Controllers\AllListingsController.cs" />
     <Compile Include="Controllers\AllListingTypesController.cs" />
     <Compile Include="Controllers\AllUsersController.cs" />
+    <Compile Include="Controllers\ActiveBookListingsController.cs" />
     <Compile Include="Controllers\ListingByIdController.cs" />
     <Compile Include="Controllers\UserByIdController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,6 +220,11 @@
     </Compile>
     <Compile Include="Library\EmailValidation.cs" />
     <Compile Include="Library\ValidatePhone.cs" />
+    <Compile Include="Models\DataContexts\BookListings.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookListings.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataContexts\Listings.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -366,6 +373,11 @@
       <LastGenOutput>Listings.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Models\DataContexts\BookListings.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>BookListings.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\api.scholarbarter.com.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -447,6 +459,11 @@
   <ItemGroup>
     <None Include="Models\DataContexts\Listings.dbml.layout">
       <DependentUpon>Listings.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\DataContexts\BookListings.dbml.layout">
+      <DependentUpon>BookListings.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>
