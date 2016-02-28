@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="www.scholarbarter.com" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Dom\\Documents\\Visual\ Studio\ 2012\\Projects\\ScholarBarter\\ScholarBarter\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Dom\\Documents\\Visual\ Studio\ 2012\\Projects\\ScholarBarter\\ScholarBarter\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=(LocalDb)\v11.0;Initial Catalog=aspnet-ScholarBarter-20160119100105;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnet-ScholarBarter-20160119100105.mdf" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Dom\\Documents\\Visual\ Studio\ 2012\\Projects\\ScholarBarter\\ScholarBarter\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="ApiConnectionString-Web.config Connection String" description="ApiConnectionString Connection String used in web.config by the application to access the database." value="Data Source=www.scholarbarter.com;Initial Catalog=Api;Persist Security Info=True;User ID=scholaruser;Password=Scholar@001" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Dom\\Documents\\Visual\ Studio\ 2012\\Projects\\ScholarBarter\\ScholarBarter\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ApiConnectionString']/@connectionString" />
+  </parameter>
+</parameters>
