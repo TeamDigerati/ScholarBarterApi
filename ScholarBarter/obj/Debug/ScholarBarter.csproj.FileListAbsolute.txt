@@ -76,4 +76,3 @@ C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarter\ScholarBarter\b
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarter\ScholarBarter\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarter\ScholarBarter\obj\Debug\ScholarBarter.dll
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarter\ScholarBarter\obj\Debug\ScholarBarter.pdb
-C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarter\ScholarBarter\obj\Debug\ScholarBarter.csprojResolveAssemblyReference.cache
