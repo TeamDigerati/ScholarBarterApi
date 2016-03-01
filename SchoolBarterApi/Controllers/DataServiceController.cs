@@ -33,7 +33,7 @@ namespace ScholarBarterApi.Controllers
         [EnableQuery]
         public HttpResponseMessage ListingTypes()
         {
-            var listingTypes = _dc.ListingTypes.ToList();
+            var listingTypes = _dc.ListingTypes.Where(lt => lt.Active).ToList();
             HttpContext.Current.Response.Headers.Add("X-InlineCount", listingTypes.Count.ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, listingTypes.AsQueryable());
         }

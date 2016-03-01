@@ -139,7 +139,9 @@
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Exceptions\InvalidEmailException.cs" />
     <Compile Include="Models\Exceptions\InvalidSessionException.cs" />
+    <Compile Include="Models\ListingsManager.cs" />
     <Compile Include="Models\OperationStatus.cs" />
+    <Compile Include="Models\SessionValidator.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
