@@ -8,23 +8,28 @@ using System.Web;
 using System.Web.Http;
 using System.Web.OData;
 using ScholarBarterApi.Model;
+using ScholarBarterApi.DataClasses;
 
 namespace ScholarBarterApi.Controllers
 {
     public class DataServiceController : ApiController
     {
-        private readonly DataClassesDataContext _dc;
-
-        public DataServiceController()
+        [HttpGet]
+        [EnableQuery]
+        public HttpResponseMessage ActiveListings()
         {
-            _dc = new DataClassesDataContext(ConfigurationManager.ConnectionStrings["ApiConnectionString"].ConnectionString);
+            ListingsDataContext dc = new ListingsDataContext();
+            var listings = dc.Listings.Where(listing => listing.Active).ToList();
+            HttpContext.Current.Response.Headers.Add("X-InlineCount", listings.Count.ToString(CultureInfo.InvariantCulture));
+            return Request.CreateResponse(HttpStatusCode.OK, listings.AsQueryable());
         }
 
         [HttpGet]
         [EnableQuery]
-        public HttpResponseMessage Listings()
+        public HttpResponseMessage AllListings()
         {
-            var listings = _dc.Listings.Where(listing => listing.Active).ToList();
+            ListingsDataContext dc = new ListingsDataContext();
+            var listings = dc.Listings.ToList();
             HttpContext.Current.Response.Headers.Add("X-InlineCount", listings.Count.ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, listings.AsQueryable());
         }
@@ -33,7 +38,8 @@ namespace ScholarBarterApi.Controllers
         [EnableQuery]
         public HttpResponseMessage ListingTypes()
         {
-            var listingTypes = _dc.ListingTypes.Where(lt => lt.Active).ToList();
+            ListingTypesDataContext dc = new ListingTypesDataContext();
+            var listingTypes = dc.ListingTypes.Where(lt => lt.Active).ToList();
             HttpContext.Current.Response.Headers.Add("X-InlineCount", listingTypes.Count.ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, listingTypes.AsQueryable());
         }
@@ -41,20 +47,22 @@ namespace ScholarBarterApi.Controllers
         [HttpPost]
         public HttpResponseMessage Login([FromBody]UserLogin userLogin)
         {
+            UsersDataContext dc = new UsersDataContext();
             var validUser =
-              _dc.Users.FirstOrDefault(user => user.EduEmail == userLogin.UserName && user.PasswordHash == userLogin.Password);
+              dc.Users.FirstOrDefault(user => user.EduEmail == userLogin.UserName && user.PasswordHash == userLogin.Password);
             return Request.CreateResponse(HttpStatusCode.OK, validUser);
         }
 
         [HttpPost]
         public HttpResponseMessage AddListing([FromBody]Listing newListing)
         {
+            ListingsDataContext dc = new ListingsDataContext();
             try
             {
                 newListing.Active = true;
                 newListing.CreationTime = DateTime.Now;
-                _dc.Listings.InsertOnSubmit(newListing);
-                _dc.SubmitChanges();
+                dc.Listings.InsertOnSubmit(newListing);
+                dc.SubmitChanges();
                 return Request.CreateResponse(HttpStatusCode.Created, newListing);
             }
             catch (Exception ex)
@@ -66,7 +74,8 @@ namespace ScholarBarterApi.Controllers
         [HttpGet]
         public HttpResponseMessage UserById(int id)
         {
-            var user = _dc.Users.FirstOrDefault(u => u.UserId == id);
+            UsersDataContext dc = new UsersDataContext();
+            var user = dc.Users.FirstOrDefault(u => u.UserId == id);
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
@@ -76,10 +85,11 @@ namespace ScholarBarterApi.Controllers
             // TODO: add validator email
             try
             {
+                UsersDataContext dc = new UsersDataContext();
                 newUser.Enabled = false;
                 newUser.CreationTime = DateTime.Now;
-                _dc.Users.InsertOnSubmit(newUser);
-                _dc.SubmitChanges();
+                dc.Users.InsertOnSubmit(newUser);
+                dc.SubmitChanges();
             }
             catch (Exception ex)
             {
@@ -91,9 +101,10 @@ namespace ScholarBarterApi.Controllers
         
         [HttpGet]
         [EnableQuery]
-        public HttpResponseMessage GetActiveUsers()
+        public HttpResponseMessage ActiveUsers()
         {
-            var users = _dc.Users.Where(u => u.Enabled).ToList();
+            UsersDataContext dc = new UsersDataContext();
+            var users = dc.Users.Where(u => u.Enabled).ToList();
 
             foreach(User u in users)
                 u.PasswordHash = "";
@@ -104,9 +115,10 @@ namespace ScholarBarterApi.Controllers
 
         [HttpGet]
         [EnableQuery]
-        public HttpResponseMessage GetAllUsers()
+        public HttpResponseMessage AllUsers()
         {
-            var users = _dc.Users.ToList();
+            UsersDataContext dc = new UsersDataContext();
+            var users = dc.Users.ToList();
 
             foreach (User u in users)
                 u.PasswordHash = "";

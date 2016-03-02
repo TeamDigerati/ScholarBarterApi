@@ -128,10 +128,25 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DataServiceController.cs" />
-    <Compile Include="DataClasses.designer.cs">
+    <Compile Include="DataClasses\Books.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataClasses.dbml</DependentUpon>
+      <DependentUpon>Books.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DataClasses\Listings.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Listings.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DataClasses\ListingTypes.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListingTypes.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DataClasses\Users.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Users.dbml</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -147,9 +162,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="DataClasses.dbml">
+    <Content Include="DataClasses\Listings.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataClasses.designer.cs</LastGenOutput>
+      <LastGenOutput>Listings.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DataClasses\ListingTypes.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ListingTypes.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DataClasses\Users.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Users.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DataClasses\Books.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Books.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\api.scholarbarter.com.pubxml" />
@@ -167,8 +197,23 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DataClasses.dbml.layout">
-      <DependentUpon>DataClasses.dbml</DependentUpon>
+    <None Include="DataClasses\Listings.dbml.layout">
+      <DependentUpon>Listings.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataClasses\ListingTypes.dbml.layout">
+      <DependentUpon>ListingTypes.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataClasses\Users.dbml.layout">
+      <DependentUpon>Users.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataClasses\Books.dbml.layout">
+      <DependentUpon>Books.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

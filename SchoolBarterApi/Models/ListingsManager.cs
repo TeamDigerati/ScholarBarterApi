@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http.Formatting;
 using ScholarBarterApi;
+using ScholarBarterApi.DataClasses;
 
 namespace ScholarBarter.Models
 {
@@ -9,8 +10,9 @@ namespace ScholarBarter.Models
         internal static void insertBookListing(FormDataCollection fd)
         {
             {
-                DataClassesDataContext dc = new DataClassesDataContext();
-                               
+                ListingsDataContext dc = new ListingsDataContext();
+                BooksDataContext bc = new BooksDataContext();
+               
                 Listing lstng = new Listing();
                 lstng.CreationTime = DateTime.Now;
                 lstng.Active = true;
@@ -30,8 +32,8 @@ namespace ScholarBarter.Models
                     bk.Condition = fd.Get("Condition");
                     bk.Isbn10 = fd.Get("Isbn10");
                     
-                    dc.Books.InsertOnSubmit(bk);
-                    dc.SubmitChanges();
+                    bc.Books.InsertOnSubmit(bk);
+                    bc.SubmitChanges();
                 }
                 catch (Exception)
                 {
