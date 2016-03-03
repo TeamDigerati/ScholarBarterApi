@@ -84,6 +84,6 @@ C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarter
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\bin\ru\System.Spatial.resources.dll
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\bin\zh-Hant\System.Spatial.resources.dll
+C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\obj\Release\ScholarBarterApi.csprojResolveAssemblyReference.cache
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\obj\Release\ScholarBarterApi.dll
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\obj\Release\ScholarBarterApi.pdb
-C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\obj\Release\ScholarBarterApi.csprojResolveAssemblyReference.cache

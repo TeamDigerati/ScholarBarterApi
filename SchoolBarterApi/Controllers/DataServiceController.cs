@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -8,18 +7,29 @@ using System.Web;
 using System.Web.Http;
 using System.Web.OData;
 using ScholarBarterApi.Model;
-using ScholarBarterApi.DataClasses;
 
 namespace ScholarBarterApi.Controllers
 {
     public class DataServiceController : ApiController
     {
+        private DataClassesDataContext dc;
+
+        public DataServiceController()
+        {
+            dc = new DataClassesDataContext();
+        }
+
         [HttpGet]
         [EnableQuery]
         public HttpResponseMessage ActiveListings()
         {
-            ListingsDataContext dc = new ListingsDataContext();
-            var listings = dc.Listings.Where(listing => listing.Active).ToList();
+            var listingQuery = from user in dc.Users
+                               join listing in dc.Listings
+                               on user.UserId equals listing.UserId
+                               where listing.Active && user.Enabled
+                               select new { listing, user.FirstName, user.LastName };
+
+            var listings = listingQuery.ToList();
             HttpContext.Current.Response.Headers.Add("X-InlineCount", listings.Count.ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, listings.AsQueryable());
         }
@@ -28,9 +38,12 @@ namespace ScholarBarterApi.Controllers
         [EnableQuery]
         public HttpResponseMessage AllListings()
         {
-            ListingsDataContext dc = new ListingsDataContext();
-            var listings = dc.Listings.ToList();
-            HttpContext.Current.Response.Headers.Add("X-InlineCount", listings.Count.ToString(CultureInfo.InvariantCulture));
+            var listings = from user in dc.Users
+                           join listing in dc.Listings
+                           on user.UserId equals listing.UserId
+                           select new { listing, user.FirstName, user.LastName };
+
+            HttpContext.Current.Response.Headers.Add("X-InlineCount", listings.ToList().Count.ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, listings.AsQueryable());
         }
 
@@ -38,8 +51,11 @@ namespace ScholarBarterApi.Controllers
         [EnableQuery]
         public HttpResponseMessage ListingTypes()
         {
-            ListingTypesDataContext dc = new ListingTypesDataContext();
-            var listingTypes = dc.ListingTypes.Where(lt => lt.Active).ToList();
+            var listingTypesQuery = from listingType in dc.ListingTypes
+                                    where listingType.Active
+                                    select new { listingType.Type, listingType.Description };
+
+            var listingTypes = listingTypesQuery.ToList();
             HttpContext.Current.Response.Headers.Add("X-InlineCount", listingTypes.Count.ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, listingTypes.AsQueryable());
         }
@@ -47,7 +63,6 @@ namespace ScholarBarterApi.Controllers
         [HttpPost]
         public HttpResponseMessage Login([FromBody]UserLogin userLogin)
         {
-            UsersDataContext dc = new UsersDataContext();
             var validUser =
               dc.Users.FirstOrDefault(user => user.EduEmail == userLogin.UserName && user.PasswordHash == userLogin.Password);
             return Request.CreateResponse(HttpStatusCode.OK, validUser);
@@ -56,7 +71,6 @@ namespace ScholarBarterApi.Controllers
         [HttpPost]
         public HttpResponseMessage AddListing([FromBody]Listing newListing)
         {
-            ListingsDataContext dc = new ListingsDataContext();
             try
             {
                 newListing.Active = true;
@@ -74,8 +88,8 @@ namespace ScholarBarterApi.Controllers
         [HttpGet]
         public HttpResponseMessage UserById(int id)
         {
-            UsersDataContext dc = new UsersDataContext();
             var user = dc.Users.FirstOrDefault(u => u.UserId == id);
+            user.PasswordHash = "";
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
@@ -85,7 +99,6 @@ namespace ScholarBarterApi.Controllers
             // TODO: add validator email
             try
             {
-                UsersDataContext dc = new UsersDataContext();
                 newUser.Enabled = false;
                 newUser.CreationTime = DateTime.Now;
                 dc.Users.InsertOnSubmit(newUser);
@@ -98,16 +111,15 @@ namespace ScholarBarterApi.Controllers
 
             return Request.CreateResponse(HttpStatusCode.Created, newUser);
         }
-        
+
         [HttpGet]
         [EnableQuery]
         public HttpResponseMessage ActiveUsers()
         {
-            UsersDataContext dc = new UsersDataContext();
-            var users = dc.Users.Where(u => u.Enabled).ToList();
-
-            foreach(User u in users)
-                u.PasswordHash = "";
+            var userQuery = from user in dc.Users
+                            where user.Enabled
+                            select new { user.UserId, user.FirstName, user.LastName, user.EduEmail, user.Gender };
+            var users = userQuery.ToList();
 
             HttpContext.Current.Response.Headers.Add("X-InlineCount", users.Count().ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, users);
@@ -117,12 +129,10 @@ namespace ScholarBarterApi.Controllers
         [EnableQuery]
         public HttpResponseMessage AllUsers()
         {
-            UsersDataContext dc = new UsersDataContext();
-            var users = dc.Users.ToList();
+            var userQuery = from user in dc.Users
+                            select new { user.UserId, user.FirstName, user.LastName, user.EduEmail, user.Gender };
+            var users = userQuery.ToList();
 
-            foreach (User u in users)
-                u.PasswordHash = "";
-            
             HttpContext.Current.Response.Headers.Add("X-InlineCount", users.Count().ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, users);
         }
