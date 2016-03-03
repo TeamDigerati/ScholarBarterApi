@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -23,11 +24,9 @@ namespace ScholarBarterApi.Controllers
         [EnableQuery]
         public HttpResponseMessage ActiveListings()
         {
-            var listingQuery = from user in dc.Users
-                               join listing in dc.Listings
-                               on user.UserId equals listing.UserId
-                               where listing.Active && user.Enabled
-                               select new { listing, user.FirstName, user.LastName };
+            var listingQuery = from ul in dc.UserListings
+                               where ul.Active && ul.Enabled
+                               select ul;
 
             var listings = listingQuery.ToList();
             HttpContext.Current.Response.Headers.Add("X-InlineCount", listings.Count.ToString(CultureInfo.InvariantCulture));
@@ -38,12 +37,13 @@ namespace ScholarBarterApi.Controllers
         [EnableQuery]
         public HttpResponseMessage AllListings()
         {
-            var listings = from user in dc.Users
-                           join listing in dc.Listings
-                           on user.UserId equals listing.UserId
-                           select new { listing, user.FirstName, user.LastName };
+            var listingQuery = from ul in dc.UserListings
+                               where ul.Active && ul.Enabled
+                               select ul;
 
-            HttpContext.Current.Response.Headers.Add("X-InlineCount", listings.ToList().Count.ToString(CultureInfo.InvariantCulture));
+            var listings = listingQuery.ToList();
+
+            HttpContext.Current.Response.Headers.Add("X-InlineCount", listings.Count.ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, listings.AsQueryable());
         }
 
@@ -118,8 +118,11 @@ namespace ScholarBarterApi.Controllers
         {
             var userQuery = from user in dc.Users
                             where user.Enabled
-                            select new { user.UserId, user.FirstName, user.LastName, user.EduEmail, user.Gender };
+                            select user;
             var users = userQuery.ToList();
+
+            foreach (User u in users)
+                u.PasswordHash = "";
 
             HttpContext.Current.Response.Headers.Add("X-InlineCount", users.Count().ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, users);
@@ -130,8 +133,11 @@ namespace ScholarBarterApi.Controllers
         public HttpResponseMessage AllUsers()
         {
             var userQuery = from user in dc.Users
-                            select new { user.UserId, user.FirstName, user.LastName, user.EduEmail, user.Gender };
+                            select user;
+            
             var users = userQuery.ToList();
+            foreach (User u in users)
+                u.PasswordHash = "";
 
             HttpContext.Current.Response.Headers.Add("X-InlineCount", users.Count().ToString(CultureInfo.InvariantCulture));
             return Request.CreateResponse(HttpStatusCode.OK, users);
