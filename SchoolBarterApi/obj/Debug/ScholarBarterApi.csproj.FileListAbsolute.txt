@@ -347,3 +347,6 @@ C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarter
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\obj\Debug\ScholarBarterApi.dll
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\obj\Debug\ScholarBarterApi.pdb
 C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\obj\Debug\ScholarBarterApi.csprojResolveAssemblyReference.cache
+C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\bin\System.Web.Cors.dll
+C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\bin\System.Web.Http.Cors.dll
+C:\Users\Dom\Documents\Visual Studio 2012\Projects\ScholarBarterAPI\SchoolBarterApi\bin\System.Web.Http.Cors.xml

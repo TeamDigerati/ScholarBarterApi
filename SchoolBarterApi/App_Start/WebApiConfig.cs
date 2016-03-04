@@ -11,6 +11,7 @@ namespace ScholarBarterApi
   {
     public static void Register(HttpConfiguration config)
     {
+        config.EnableCors();
       // Web API configuration and services
 
       // Web API routes
@@ -23,7 +24,7 @@ namespace ScholarBarterApi
 
       );
       
-        config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+      config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
       config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     }
   }

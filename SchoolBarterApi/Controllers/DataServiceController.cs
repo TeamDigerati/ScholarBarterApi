@@ -6,7 +6,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.OData;
+using Newtonsoft.Json.Linq;
 using ScholarBarterApi.Model;
 
 namespace ScholarBarterApi.Controllers
@@ -60,6 +62,7 @@ namespace ScholarBarterApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, listingTypes.AsQueryable());
         }
 
+        [EnableCors(origins: "http://www.scholarbarter.com", headers: "*", methods: "*")]
         [HttpPost]
         public HttpResponseMessage Login([FromBody]UserLogin userLogin)
         {
