@@ -48,6 +48,9 @@ namespace ScholarBarterApi
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertAccountValidation(AccountValidation instance);
+    partial void UpdateAccountValidation(AccountValidation instance);
+    partial void DeleteAccountValidation(AccountValidation instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -133,6 +136,14 @@ namespace ScholarBarterApi
 			get
 			{
 				return this.GetTable<UserListing>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AccountValidation> AccountValidations
+		{
+			get
+			{
+				return this.GetTable<AccountValidation>();
 			}
 		}
 	}
@@ -1330,6 +1341,164 @@ namespace ScholarBarterApi
 				{
 					this._Enabled = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AccountValidations")]
+	public partial class AccountValidation : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _UserId;
+		
+		private string _ValidationKey;
+		
+		private System.DateTime _CreationTime;
+		
+		private System.Nullable<System.DateTime> _ValidationTime;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    partial void OnValidationKeyChanging(string value);
+    partial void OnValidationKeyChanged();
+    partial void OnCreationTimeChanging(System.DateTime value);
+    partial void OnCreationTimeChanged();
+    partial void OnValidationTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnValidationTimeChanged();
+    #endregion
+		
+		public AccountValidation()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ValidationKey", DbType="Char(32) NOT NULL", CanBeNull=false)]
+		public string ValidationKey
+		{
+			get
+			{
+				return this._ValidationKey;
+			}
+			set
+			{
+				if ((this._ValidationKey != value))
+				{
+					this.OnValidationKeyChanging(value);
+					this.SendPropertyChanging();
+					this._ValidationKey = value;
+					this.SendPropertyChanged("ValidationKey");
+					this.OnValidationKeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreationTime", DbType="DateTime NOT NULL")]
+		public System.DateTime CreationTime
+		{
+			get
+			{
+				return this._CreationTime;
+			}
+			set
+			{
+				if ((this._CreationTime != value))
+				{
+					this.OnCreationTimeChanging(value);
+					this.SendPropertyChanging();
+					this._CreationTime = value;
+					this.SendPropertyChanged("CreationTime");
+					this.OnCreationTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ValidationTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ValidationTime
+		{
+			get
+			{
+				return this._ValidationTime;
+			}
+			set
+			{
+				if ((this._ValidationTime != value))
+				{
+					this.OnValidationTimeChanging(value);
+					this.SendPropertyChanging();
+					this._ValidationTime = value;
+					this.SendPropertyChanged("ValidationTime");
+					this.OnValidationTimeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

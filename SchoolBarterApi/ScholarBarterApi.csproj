@@ -131,7 +131,9 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -145,8 +147,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Email.cs" />
+    <Compile Include="Models\EmailValidator.cs" />
     <Compile Include="Models\Exceptions\InvalidEmailException.cs" />
     <Compile Include="Models\Exceptions\InvalidSessionException.cs" />
+    <Compile Include="Models\Md5Hasher.cs" />
     <Compile Include="Models\OperationStatus.cs" />
     <Compile Include="Models\SessionValidator.cs" />
     <Compile Include="Models\UserLogin.cs" />

@@ -14,7 +14,7 @@ namespace ScholarBarter.Models
 
         public void send()
         {
-            if (isValid)
+            if (Email.isValid(To) && Email.isValid(From))
             {
                 MailSender sndr = new MailSender();
                 sndr.Send(From, To, Subject, Body);
@@ -25,14 +25,12 @@ namespace ScholarBarter.Models
             }
         }
 
-        public bool isValid
+        public static bool isValid(string address)
         {
-            get
-            {
-                var validator = new EmailAddressAttribute();
+            var validator = new EmailAddressAttribute();
 
-                return (validator.IsValid(From) && validator.IsValid(To));
-            }
+            return (validator.IsValid(address));
+            
         }
     }
 }

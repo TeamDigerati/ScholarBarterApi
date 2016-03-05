@@ -23,7 +23,7 @@ namespace ScholarBarterApi
           defaults: new { id = RouteParameter.Optional }
 
       );
-      
+
       config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
       config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     }
